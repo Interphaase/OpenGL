@@ -11,7 +11,6 @@
 class Camera {
 
 private:
-	float FOV, near_clip, far_clip, aspect_ratio, speed;
 	float last_time, deltaTime;
 
 
@@ -20,12 +19,12 @@ public:
 	glm::vec3 camera_position;
 	glm::vec3 camera_front;
 	glm::vec3 camera_up;
+	float speed;
 
 
-	Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, ShaderProgram* shd,
-			float fov, float n_clip, float f_clip, float asp_rt, float speed);
+	Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, float speed);
 	void HandleMovement(GLFWwindow* window);
-	void Calculate();
+	void Calculate(ShaderProgram* shader, float FOV, float aspect_ratio, float near_clip, float far_clip);
 
 
 };

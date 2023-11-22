@@ -23,7 +23,7 @@ static void glfwError(int id, const char* description) {
 int main(void) {
 
     //Setting window parameters
-    int window_height = 1000, window_width = 1000;
+    int window_height = 800, window_width = 800;
 
     //Setting function for handling errors with OpenGL
     glfwSetErrorCallback(&glfwError);
@@ -91,8 +91,7 @@ int main(void) {
     vao1.LinkVBO(&vbo1, lay1);
     vao1.LinkEBO(&ebo1);
 
-    Camera cam(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f),
-               &basicShader, 45.0f, 0.01f, 100.0f, (float)window_width/(float)window_height, 1.5f);
+    Camera cam(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 3.0f);
 
     unsigned int mod_loc;
     mod_loc = glGetUniformLocation(basicShader.ID, "model");
@@ -115,7 +114,7 @@ int main(void) {
         glUniformMatrix4fv(mod_loc, 1, GL_FALSE, glm::value_ptr(model));
         
         cam.HandleMovement(window);
-        cam.Calculate();
+        cam.Calculate(&basicShader, 45.0f, (float)window_width / (float)window_height, 0.01f, 100.0f);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         
         glfwSwapBuffers(window);

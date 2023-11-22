@@ -5,20 +5,14 @@
 
 
 
-Camera::Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, ShaderProgram* shd,
-				float fov, float n_clip, float f_clip,  float asp_rt, float speed) {
-	camera_position = camPosition;
-	camera_front = camFront;
-	camera_up = camUp;
-	shader = shd;
-	FOV = fov;
-	near_clip = n_clip;
-	far_clip = f_clip;
-	aspect_ratio = asp_rt;
+Camera::Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, float speed) {
+	this->camera_position = camPosition;
+	this->camera_front = camFront;
+	this->camera_up = camUp;
 	this->speed = speed;
 }
 
-void Camera::Calculate(void) {
+void Camera::Calculate(ShaderProgram* shader, float FOV, float aspect_ratio, float near_clip, float far_clip) {
 	unsigned int view_loc, proj_loc;
 	view_loc = glGetUniformLocation(shader->ID, "view");
 	proj_loc = glGetUniformLocation(shader->ID, "projection");
@@ -27,7 +21,7 @@ void Camera::Calculate(void) {
 	glm::mat4 view_matrix = glm::mat4(1.0f);
 
 	projection_matrix = glm::perspective(glm::radians(FOV), aspect_ratio, near_clip, far_clip);
-	view_matrix = glm::lookAt(camera_position, camera_position + camera_front, camera_up);
+	view_matrix = glm::lookAt(this->camera_position, this->camera_position + this->camera_front, this->camera_up);
 
 	glUniformMatrix4fv(view_loc, 1, GL_FALSE, glm::value_ptr(view_matrix));
 	glUniformMatrix4fv(proj_loc, 1, GL_FALSE, glm::value_ptr(projection_matrix));
