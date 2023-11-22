@@ -88,7 +88,6 @@ int main(void) {
     VAO vao1;
     ShaderProgram basicShader("./Shaders/BasicVertexShader.vrtx", "./Shaders/BasicFragmentShader.frgmt");
 
-
     vao1.LinkVBO(&vbo1, lay1);
     vao1.LinkEBO(&ebo1);
 
