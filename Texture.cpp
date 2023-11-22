@@ -1,5 +1,5 @@
-#ifndef TEXTURE_CPP
-#define TEXTURE_CPP
+#ifndef TEXTURE_CLASS
+#define TEXTURE_CLASS
 #include "Texture.h"
 
 Texture::Texture(int tex_buff_index, const char* image_location) {

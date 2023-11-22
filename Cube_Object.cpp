@@ -1,5 +1,5 @@
-#ifndef CUBE_OBJECT_CPP
-#define CUBE_OBJECT_CPP
+#ifndef CUBE_OBJECT_CLASS
+#define CUBE_OBJECT_CLASS
 #include "Cube_Object.h"
 
 
