@@ -10,6 +10,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "Camera.h"
+#include "Texture.h"
 
 
 
@@ -66,20 +67,8 @@ int main(void) {
     GLuint vertex_order[] = {0, 1, 2,
                              2, 3, 1};
 
-    stbi_set_flip_vertically_on_load(true);
-    int tex_width, tex_height, nrChannels;
-    unsigned char* data = stbi_load("./Textures/tex1.png", &tex_width, &tex_height, &nrChannels, 0);
-
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex_width, tex_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    Texture tex1(0, "./Textures/tex1.png");
+    tex1.Bind();
 
 
     Layout lay1(2, std::vector<unsigned int> {3, 2}, std::vector<unsigned int> {GL_FLOAT, GL_FLOAT}, std::vector<unsigned int> {0, 0});
@@ -99,10 +88,6 @@ int main(void) {
     vao1.Bind();
     basicShader.Activate();
     
-    
-    
-    
-
     //Draw Loop
     while (!glfwWindowShouldClose(window)) {
 
@@ -126,6 +111,7 @@ int main(void) {
     vao1.Delete();
     ebo1.Delete();
     vbo1.Delete();
+
     //Terminating a window
     glfwDestroyWindow(window);
 
