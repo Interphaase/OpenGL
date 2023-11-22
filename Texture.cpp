@@ -28,5 +28,10 @@ void Texture::Bind() {
 
 }
 
+void Texture::Unbind() {
+	glActiveTexture(GL_TEXTURE0 + this->texture_buffer);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 
 #endif
