@@ -5,14 +5,20 @@
 
 
 
-Camera::Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, float speed) {
+Camera::Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, float speed,
+				float FOV, float aspect_ratio, float near_clip, float far_clip) {
+
 	this->camera_position = camPosition;
 	this->camera_front = camFront;
 	this->camera_up = camUp;
 	this->speed = speed;
+	this->FOV = FOV;
+	this->aspect_ratio = aspect_ratio;
+	this->near_clip = near_clip;
+	this->far_clip = far_clip;
 }
 
-void Camera::Calculate(ShaderProgram* shader, float FOV, float aspect_ratio, float near_clip, float far_clip) {
+void Camera::Calculate(ShaderProgram* shader) {
 	unsigned int view_loc, proj_loc;
 	view_loc = glGetUniformLocation(shader->ID, "view");
 	proj_loc = glGetUniformLocation(shader->ID, "projection");

@@ -6,6 +6,7 @@ class EBO {
 	public:
 		GLuint ID;
 		EBO(GLuint* vertex_order, GLsizeiptr size);
+		EBO();
 		void Bind();
 		void Unbind();
 		void Delete();

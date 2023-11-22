@@ -11,6 +11,7 @@ VBO::VBO(GLfloat* vertices, GLsizeiptr size) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0); 
 
 };
+VBO::VBO() {};
 void VBO::Bind() {
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 };

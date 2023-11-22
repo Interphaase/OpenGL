@@ -1,5 +1,5 @@
 #ifndef VAO_H
-#define VAO_h
+#define VAO_H
 #include <glad/glad.h>
 #include "VBO.h"
 #include "EBO.h"
