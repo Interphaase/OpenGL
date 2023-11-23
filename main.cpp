@@ -20,7 +20,6 @@ static void glfwError(int id, const char* description) {
     std::cout << "Error ID: " << id << "\nDescription: " << description << "\n \n";
 }
 
-
 int main(void) {
 
     //Setting window parameters
@@ -28,6 +27,8 @@ int main(void) {
 
     //Setting function for handling errors with OpenGL
     glfwSetErrorCallback(&glfwError);
+
+    
 
     //Initializing OpenGL
     glfwInit();
@@ -56,25 +57,28 @@ int main(void) {
     //Setting OpenGL render range in window
     glViewport(0, 0, window_width, window_height);
 
+    
 
     //Creating Texture
     Texture tex1(0, "./Textures/tex1.png");
-    //tex1.Bind();
 
+    //Creating Shader
     ShaderProgram basicShader("./Shaders/BasicVertexShader.vrtx", "./Shaders/BasicFragmentShader.frgmt");
 
     //Creating Camera
     Camera cam(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 3.0f,
                 45.0f, (float)window_width / (float)window_height, 0.01f, 100.0f);
     
+    //Creating Cube
     CubeObject cube(glm::vec3(0.0f, 0.0f, 0.0f), &basicShader, &tex1, &cam);
 
-
+    glEnable(GL_DEPTH_TEST);
     //Draw Loop
     while (!glfwWindowShouldClose(window)) {
 
         glClearColor(0.66f, 0.66f, 0.66f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
         
         cam.HandleMovement(window);
         cube.Draw();

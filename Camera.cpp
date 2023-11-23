@@ -16,6 +16,8 @@ Camera::Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, float
 	this->aspect_ratio = aspect_ratio;
 	this->near_clip = near_clip;
 	this->far_clip = far_clip;
+	
+
 }
 
 void Camera::Calculate(ShaderProgram* shader) {
