@@ -11,7 +11,7 @@ CubeObject::CubeObject(glm::vec3 position, ShaderProgram* shader, Texture* tex, 
 	this->texture = tex;
 	this->cam = cam;
 
-	this->vertex_data = new GLfloat[100] { 0.5f, -0.5f, 0.5f, 1.0f, 0.0f, //FRONTFACE_BOTTOM_RIGHT
+	this->vertex_data = new GLfloat[120] { 0.5f, -0.5f, 0.5f, 1.0f, 0.0f, //FRONTFACE_BOTTOM_RIGHT
 										0.5f, 0.5f, 0.5f, 1.0f, 1.0f,     //FRONTFACE_TOP_RIGHT
 									   -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,    //FRONTFACE_BOTTOM_LEFT
 								       -0.5f, 0.5f, 0.5f, 0.0f, 1.0f,     // FRONTFACE_TOP_LEFT;
@@ -31,23 +31,29 @@ CubeObject::CubeObject(glm::vec3 position, ShaderProgram* shader, Texture* tex, 
 									    0.5f, -0.5f, 0.5f, 0.0f, 0.0f,    //RIGHTFACE_BOTTOM_LEFT
 									    0.5f, 0.5f, 0.5f, 0.0f, 1.0f,     //RIGHTFACE_TOP_LEFT
 
-									   -0.5f, 0.5f, -0.5f, 0.0f, 0.0f,    //TOPFACE_BOTTOM_LEFT
-										0.5f, 0.5f, -0.5f, 0.0f, 1.0f,    //TOPFACE_TOP_LEFT
-									   -0.5f, 0.5f, 0.5f, 1.0f, 0.0f,	  //TOPFACE_BOTTOM_RIGHT
-										0.5f, 0.5f, 0.5f, 1.0f, 1.0f,     //TOPFACE_TOP_RIGHT
+									    -0.5f, 0.5f, 0.5f, 0.0f, 0.0f,    //TOPFACE_BOTTOM_LEFT
+									    -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,   //TOPFACE_TOP_LEFT
+									    0.5f, 0.5f, 0.5f, 1.0f, 0.0f,	  //TOPFACE_BOTTOM_RIGHT
+										0.5f, 0.5f, -0.5f, 1.0f, 1.0f,    //TOPFACE_TOP_RIGHT
+
+										-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,   //BOTTOMFACE_BOTTOM_LEFT
+										-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,  //BOTTOMFACE_TOP_LEFT
+										0.5f, -0.5f, 0.5f, 1.0f, 0.0f,	  //BOTTOMFACE_BOTTOM_RIGHT
+										0.5f, -0.5f, -0.5f, 1.0f, 1.0f,   //BOTTOMFACE_TOP_RIGHT
 
 									};
 
-	this->vertex_order = new GLuint[30] {0, 1, 2, 2, 3, 1,			    /*FRONT WALL*/
+	this->vertex_order = new GLuint[36] {0, 1, 2, 2, 3, 1,			    /*FRONT WALL*/
 										 4, 5, 6, 6, 7, 5,			    /*BACK WALL*/
 										 8, 9, 10, 10, 11, 9,   	    /*LEFT WALL*/
 										 12, 13, 14, 14, 15, 13,		/*RIGHT WALL*/
-										 13, 14, 15, 15, 16, 14			/*TOP WALL*/
+										 16, 17, 18, 18, 19, 17,		/*TOP WALL*/
+										 20, 21, 22, 22, 23, 21			/*BOTTOM WALL*/
 		 };
 
 	Layout lay1(2, std::vector<unsigned int> {3, 2}, std::vector<unsigned int> {GL_FLOAT, GL_FLOAT}, std::vector<unsigned int> {0, 0});
-	this->vbo = VBO(this->vertex_data, 100*sizeof(GLfloat));
-	this->ebo = EBO(this->vertex_order, 30*sizeof(GLuint));
+	this->vbo = VBO(this->vertex_data, 120*sizeof(GLfloat));
+	this->ebo = EBO(this->vertex_order, 36*sizeof(GLuint));
 
 	this->vao.LinkVBO(&this->vbo, lay1);
 	this->vao.LinkEBO(&this->ebo);
@@ -66,7 +72,7 @@ void CubeObject::Draw() {
 	glUniformMatrix4fv(mod_loc, 1, GL_FALSE, glm::value_ptr(model));
 	
 	cam->Calculate(this->shader);
-	glDrawElements(GL_TRIANGLES, 30, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
 };
 

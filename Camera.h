@@ -13,6 +13,9 @@ class Camera {
 private:
 	float last_time, deltaTime;
 	float FOV, aspect_ratio, near_clip, far_clip;
+	float sensitivity;
+	double last_mouse_x=0, last_mouse_y=0;
+	double totalOffset_x = 270, totalOffset_y = 0;
 
 
 public:
@@ -24,10 +27,9 @@ public:
 
 
 	Camera(glm::vec3 camPosition, glm::vec3 camFront, glm::vec3 camUp, float speed,
-			float FOV, float aspect_ratio, float near_clip, float far_clip);
+			float FOV, float aspect_ratio, float near_clip, float far_clip, float sensitivity);
 
-	void MouseCallback(GLFWwindow* window, double x_mouse, double y_mouse);
-	void HandleMovement(GLFWwindow* window);
+	void HandleMovement(GLFWwindow* window, double mouse_x, double mouse_y);
 	void Calculate(ShaderProgram* shader);
 
 

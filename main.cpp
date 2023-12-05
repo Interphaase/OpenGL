@@ -13,11 +13,16 @@
 #include "Texture.h"
 #include "Cube_Object.h"
 
-
+double MOUSE_X=0, MOUSE_Y=0;
 
 static void glfwError(int id, const char* description) {
     
     std::cout << "Error ID: " << id << "\nDescription: " << description << "\n \n";
+}
+
+void mousePosition(GLFWwindow* window, double x_pos, double y_pos) {
+    MOUSE_X = x_pos;
+    MOUSE_Y = y_pos;
 }
 
 int main(void) {
@@ -27,6 +32,7 @@ int main(void) {
 
     //Setting function for handling errors with OpenGL
     glfwSetErrorCallback(&glfwError);
+    
 
     
 
@@ -40,6 +46,9 @@ int main(void) {
 
     //Creating a Window object for OpenGL
     GLFWwindow* window = glfwCreateWindow(window_width, window_height, "Cool Window", NULL, NULL);
+
+    //Setting mouse position callback
+    glfwSetCursorPosCallback(window, mousePosition);
 
     //Closing Program if failed to create a window
     if (window == NULL) {
@@ -67,21 +76,23 @@ int main(void) {
 
     //Creating Camera
     Camera cam(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 3.0f,
-                45.0f, (float)window_width / (float)window_height, 0.01f, 100.0f);
+                45.0f, (float)window_width / (float)window_height, 0.01f, 100.0f, 10.0f);
     
     //Creating Cube
     CubeObject cube(glm::vec3(0.0f, 0.0f, 0.0f), &basicShader, &tex1, &cam);
 
     glEnable(GL_DEPTH_TEST);
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //Draw Loop
     while (!glfwWindowShouldClose(window)) {
 
         glClearColor(0.66f, 0.66f, 0.66f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        
-        cam.HandleMovement(window);
+
+        cam.HandleMovement(window, MOUSE_X, MOUSE_Y);
         cube.Draw();
+        
         
         glfwSwapBuffers(window);
         glfwPollEvents();
