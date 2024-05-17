@@ -1,2 +1,4 @@
-This is place where I learn OpenGL, trying to make maybe my first 3D Engine :>
-The compiled code can be found in folder 'Compiled Code' (obviously) :D
+# 3D Cube
+
+Basic 3D program for showing 3D Cube, everything was written form scratch. 
+You can move camera using WSAD and rotate it using mouse.
