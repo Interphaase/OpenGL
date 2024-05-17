@@ -6,5 +6,5 @@ You can move camera using WSAD and rotate it using mouse.
 ## How to run?
 Program was build and tested only on Windows !
 
-1.Download .zip file from repo/Compiled_Code
-2.Run exe file
+1. Download .zip file from repo/Compiled_Code
+2. Run exe file
